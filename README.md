@@ -35,3 +35,10 @@ The trade-off: "deepest" is not always "the" root cause — a mid-tree timeout t
 - **Dangling `parent_id`.** If a span references a parent that is not in the list, the ancestor walk stops there. The candidate is still marked.
 - **Cycles.** A `parent_id` chain that loops back on itself raises `ValueError`. A cyclic span tree is a producer bug worth surfacing rather than papering over.
 - **Mutation.** `annotate_root_cause` sets `root_cause` on every span in the input list — `"candidate"` for the winner and its ancestors, `False` otherwise. It does not copy.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
