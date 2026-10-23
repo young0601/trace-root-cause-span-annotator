@@ -1,6 +1,6 @@
 [project]
 name = "trace-root-cause-span-annotator"
-version = "0.1.1"
+version = "0.1.2"
 description = "Traces the deepest error in a span tree and marks ancestor spans to pinpoint root causes during triage"
 requires-python = ">=3.10"
 dependencies = []
